@@ -1,0 +1,17 @@
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar {
+  background-color: #2196f3 !important;
+}
+
+.content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

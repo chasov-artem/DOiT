@@ -1,0 +1,31 @@
+.container {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.title {
+  margin-bottom: 24px !important;
+  color: #2196f3;
+}
+
+.subtitle {
+  margin-bottom: 48px !important;
+  color: #666;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.button {
+  min-width: 200px;
+}
