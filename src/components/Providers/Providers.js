@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Provider } from "react-redux";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { store } from "@/store/store";
 import { useSelector } from "react-redux";
 
@@ -23,7 +23,7 @@ const ThemeWrapper = ({ children }) => {
         dark: "#7b1fa2",
       },
       background: {
-        default: isDarkMode ? "#121212" : "#f5f5f5",
+        default: isDarkMode ? "#121212" : "#ffffff",
         paper: isDarkMode ? "#1e1e1e" : "#ffffff",
       },
       text: {
@@ -35,24 +35,37 @@ const ThemeWrapper = ({ children }) => {
     },
     typography: {
       h3: {
-        fontWeight: 700,
-        fontSize: "2.5rem",
-        "@media (max-width:600px)": {
-          fontSize: "2rem",
-        },
+        fontWeight: 400,
+        fontSize: "48px",
+        background: "linear-gradient(135deg, #64B5F6 0%, #BA68C8 100%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
       },
       subtitle1: {
-        fontSize: "1.1rem",
+        fontSize: "18px",
         lineHeight: 1.5,
+        color: isDarkMode ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
       },
     },
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          html: {
+            colorScheme: isDarkMode ? "dark" : "light",
+          },
+          body: {
+            backgroundColor: isDarkMode ? "#121212" : "#ffffff",
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
             borderRadius: 8,
             textTransform: "uppercase",
             fontWeight: 500,
+            fontSize: "14px",
           },
           containedPrimary: {
             background: "linear-gradient(135deg, #2196f3 0%, #1976d2 100%)",
@@ -61,9 +74,12 @@ const ThemeWrapper = ({ children }) => {
             },
           },
           outlined: {
-            borderWidth: "2px",
+            borderWidth: "1px",
             "&:hover": {
-              borderWidth: "2px",
+              borderWidth: "1px",
+              backgroundColor: isDarkMode
+                ? "rgba(255, 255, 255, 0.05)"
+                : "rgba(0, 0, 0, 0.05)",
             },
           },
         },
@@ -71,7 +87,12 @@ const ThemeWrapper = ({ children }) => {
     },
   });
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 };
 
 export const Providers = ({ children }) => {

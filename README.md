@@ -1,4 +1,4 @@
-# DOiT Test Task
+# DOiT MVP Task
 
 Тестове завдання для DOiT з використанням Next.js 14, React 18, Redux Toolkit та Material UI.
 

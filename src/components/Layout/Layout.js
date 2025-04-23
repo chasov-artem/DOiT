@@ -11,6 +11,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  useTheme,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -28,6 +29,7 @@ const Layout = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const dispatch = useDispatch();
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const theme = useTheme();
 
   const menuItems = [
     { text: "Головна", icon: <HomeIcon />, path: "/" },
@@ -36,7 +38,12 @@ const Layout = ({ children }) => {
   ];
 
   return (
-    <div className={styles.layout}>
+    <div
+      className={styles.layout}
+      style={{
+        backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#ffffff",
+      }}
+    >
       <AppBar position="static" className={styles.appBar}>
         <Toolbar>
           <IconButton
@@ -48,7 +55,7 @@ const Layout = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={styles.title}>
-            DOiT Test
+            DOiT MVP
           </Typography>
           <ThemeToggle
             isDarkMode={isDarkMode}
