@@ -1,0 +1,13 @@
+.dialog {
+  max-height: 80vh;
+}
+
+.email {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.commentBody {
+  margin-top: 8px;
+  white-space: pre-wrap;
+}

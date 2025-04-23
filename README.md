@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DOiT Test Task
 
-## Getting Started
+Тестове завдання для DOiT з використанням Next.js 14, React 18, Redux Toolkit та Material UI.
 
-First, run the development server:
+## Технічний стек
+
+- Next.js 14 (App Router)
+- React 18 з хуками
+- Redux Toolkit (store, slices, actions, selectors, async thunks)
+- Material UI v5 для всіх UI-компонентів
+- JavaScript (ES6+)
+- Фейкове API: https://jsonplaceholder.typicode.com
+
+## Функціональність
+
+- Повний CRUD над ресурсом posts через Redux Toolkit + асинхронні запити
+- Матеріальний дизайн: усі елементи інтерфейсу — компоненти Material UI
+- Світла/темна тема з перемикачем у AppBar
+- Навігація через Next.js App Router + Drawer (ліве меню) на всіх сторінках
+
+## Структура проекту
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── posts/             # Сторінки для роботи з постами
+│   │   ├── [id]/          # Деталі поста
+│   │   ├── create/        # Створення поста
+│   │   └── page.js        # Список постів
+│   ├── layout.js          # Кореневий layout
+│   └── page.js            # Головна сторінка
+├── components/             # React компоненти
+│   ├── CommentsDialog/    # Діалог з коментарями
+│   ├── Home/              # Головна сторінка
+│   ├── Layout/            # Layout з AppBar та Drawer
+│   ├── PostCard/          # Картка поста
+│   ├── PostDetails/       # Деталі поста
+│   ├── PostForm/          # Форма створення поста
+│   ├── Posts/             # Список постів
+│   ├── Providers/         # Провайдери (Redux, Theme)
+│   ├── SearchBar/         # Пошук постів
+│   └── ThemeToggle/       # Перемикач теми
+├── store/                 # Redux store
+│   ├── postsSlice.js      # Слайс для постів
+│   ├── themeSlice.js      # Слайс для теми
+│   └── store.js           # Конфігурація store
+└── styles/                # Глобальні стилі
+```
+
+## Інструкція з запуску
+
+1. Клонуйте репозиторій:
+
+```bash
+git clone <repository-url>
+```
+
+2. Встановіть залежності:
+
+```bash
+npm install
+```
+
+3. Запустіть проект в режимі розробки:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Відкрийте [http://localhost:3000](http://localhost:3000) у вашому браузері.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Рекомендації для подальшого покращення
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Юніт-тести**:
 
-## Learn More
+   - Додати тести для Redux слайсів
+   - Додати тести для компонентів
+   - Налаштувати Jest та React Testing Library
 
-To learn more about Next.js, take a look at the following resources:
+2. **RTK Query**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   - Замінити ручні fetch-запити на RTK Query
+   - Додати кешування та автоматичне оновлення даних
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Адаптивність**:
 
-## Deploy on Vercel
+   - Покращити мобільну версію
+   - Додати більше брейкпоінтів для різних розмірів екрану
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **UX покращення**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   - Додати анімації для переходів між сторінками
+   - Покращити відображення помилок
+   - Додати підтвердження для видалення постів
+   - Додати пагінацію для списку постів
+   - Додати фільтрацію за іншими полями
+
+5. **Безпека**:
+
+   - Додати валідацію форм
+   - Додати захист від XSS
+   - Додати rate limiting для API запитів
+
+6. **Оптимізація**:
+   - Додати lazy loading для компонентів
+   - Оптимізувати зображення
+   - Додати Service Worker для офлайн-режиму

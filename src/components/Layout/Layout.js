@@ -16,11 +16,16 @@ import {
   List as ListIcon,
   Add as AddIcon,
 } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "@/store/themeSlice";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import styles from "./Layout.module.css";
 
 const Layout = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
 
   const menuItems = [
     { text: "Головна", icon: <HomeIcon />, path: "/" },
@@ -43,6 +48,10 @@ const Layout = ({ children }) => {
           <Typography variant="h6" className={styles.title}>
             DOiT Test
           </Typography>
+          <ThemeToggle
+            isDarkMode={isDarkMode}
+            onToggle={() => dispatch(toggleTheme())}
+          />
         </Toolbar>
       </AppBar>
 
