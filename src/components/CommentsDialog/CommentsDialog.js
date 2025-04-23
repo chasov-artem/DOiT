@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Dialog,
@@ -5,9 +7,9 @@ import {
   DialogContent,
   List,
   ListItem,
-  ListItemText,
   Typography,
   Divider,
+  Box,
 } from "@mui/material";
 import styles from "./CommentsDialog.module.css";
 
@@ -26,32 +28,26 @@ const CommentsDialog = ({ open, onClose, comments }) => {
           {comments.map((comment, index) => (
             <React.Fragment key={comment.id}>
               <ListItem alignItems="flex-start">
-                <ListItemText
-                  primary={
-                    <Typography variant="subtitle1" component="div">
-                      {comment.name}
-                    </Typography>
-                  }
-                  secondary={
-                    <>
-                      <Typography
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                        className={styles.email}
-                      >
-                        {comment.email}
-                      </Typography>
-                      <Typography
-                        component="p"
-                        variant="body2"
-                        className={styles.commentBody}
-                      >
-                        {comment.body}
-                      </Typography>
-                    </>
-                  }
-                />
+                <Box sx={{ width: "100%" }}>
+                  <Typography variant="subtitle1" component="div">
+                    {comment.name}
+                  </Typography>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                    className={styles.email}
+                  >
+                    {comment.email}
+                  </Typography>
+                  <Typography
+                    component="div"
+                    variant="body2"
+                    className={styles.commentBody}
+                  >
+                    {comment.body}
+                  </Typography>
+                </Box>
               </ListItem>
               {index < comments.length - 1 && (
                 <Divider variant="inset" component="li" />

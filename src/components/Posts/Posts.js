@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { Grid, SpeedDial, SpeedDialIcon } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
