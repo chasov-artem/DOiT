@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Typography, Button, Container, Box, useTheme } from "@mui/material";
-import { List as ListIcon, Add as AddIcon } from "@mui/icons-material";
+import { List as ListIcon, AddCircle as AddCircle } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import styles from "./Home.module.css";
 
@@ -75,7 +75,7 @@ const Home = () => {
             size="large"
             onClick={() => router.push("/posts/create")}
             className={styles.button}
-            startIcon={<AddIcon />}
+            startIcon={<AddCircle />}
           >
             Додати пост
           </Button>

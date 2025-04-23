@@ -42,6 +42,7 @@ const Layout = ({ children }) => {
       className={styles.layout}
       style={{
         backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#ffffff",
+        color: theme.palette.mode === "dark" ? "#ffffff" : "#000000",
       }}
     >
       <AppBar position="static" className={styles.appBar}>

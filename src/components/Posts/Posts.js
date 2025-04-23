@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Grid, SpeedDial, SpeedDialIcon } from "@mui/material";
+import {
+  Grid,
+  SpeedDial,
+  SpeedDialIcon,
+  useTheme,
+  Box,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { fetchPosts } from "@/store/postsSlice";
@@ -13,6 +21,7 @@ const Posts = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const theme = useTheme();
 
   const { items: posts, status } = useSelector((state) => state.posts);
 
@@ -31,15 +40,46 @@ const Posts = () => {
   };
 
   if (status === "loading") {
-    return <div>Завантаження...</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (status === "failed") {
-    return <div>Помилка завантаження постів</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <Typography color="error" variant="h6">
+          Помилка завантаження постів
+        </Typography>
+      </Box>
+    );
   }
 
   return (
-    <div className={styles.container}>
+    <Box
+      className={styles.container}
+      sx={{
+        backgroundColor: theme.palette.mode === "dark" ? "#121212" : "#ffffff",
+        minHeight: "100vh",
+        padding: "24px",
+      }}
+    >
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
       <Grid container spacing={3}>
         {filteredPosts.map((post) => (
@@ -50,11 +90,21 @@ const Posts = () => {
       </Grid>
       <SpeedDial
         ariaLabel="Створити пост"
-        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          "& .MuiSpeedDial-fab": {
+            background: "linear-gradient(135deg, #2196f3 0%, #1976d2 100%)",
+            "&:hover": {
+              background: "linear-gradient(135deg, #1976d2 0%, #1565c0 100%)",
+            },
+          },
+        }}
         icon={<SpeedDialIcon />}
         onClick={handleCreatePost}
       />
-    </div>
+    </Box>
   );
 };
 
