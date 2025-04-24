@@ -1,3 +1,11 @@
+/**
+ * Компонент картки поста
+ * Відображає основну інформацію про пост:
+ * - Заголовок
+ * - Початок тексту (до 150 символів)
+ * - Кнопки для видалення та перегляду деталей
+ */
+
 "use client";
 
 import React from "react";
@@ -27,10 +35,12 @@ const PostCard = ({ post }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
+  // Обробка видалення поста
   const handleDelete = () => {
     dispatch(deletePost(post.id));
   };
 
+  // Перехід до деталей поста
   const handleView = () => {
     router.push(`/posts/${post.id}`);
   };
@@ -40,6 +50,7 @@ const PostCard = ({ post }) => {
       className={styles.card}
       component={Paper}
       sx={{
+        // Стилізація картки в залежності від теми
         background:
           theme.palette.mode === "dark"
             ? "rgba(30, 30, 30, 0.95)"
@@ -67,6 +78,7 @@ const PostCard = ({ post }) => {
       elevation={0}
     >
       <CardHeader
+        // Аватар з першою літерою заголовка
         avatar={
           <Avatar
             sx={{
@@ -79,6 +91,7 @@ const PostCard = ({ post }) => {
             {post.title.charAt(0).toUpperCase()}
           </Avatar>
         }
+        // Кнопка видалення
         action={
           <IconButton
             onClick={handleDelete}
@@ -97,6 +110,7 @@ const PostCard = ({ post }) => {
             <DeleteIcon />
           </IconButton>
         }
+        // Заголовок поста
         title={
           <Typography
             variant="h6"
@@ -109,6 +123,7 @@ const PostCard = ({ post }) => {
             {post.title}
           </Typography>
         }
+        // Підзаголовок з ID користувача
         subheader={
           <Typography
             variant="subtitle2"
@@ -124,6 +139,7 @@ const PostCard = ({ post }) => {
         }
       />
       <CardContent>
+        {/* Текст поста з обмеженням у 150 символів */}
         <Typography
           variant="body2"
           className={styles.content}
@@ -140,6 +156,7 @@ const PostCard = ({ post }) => {
             : post.body}
         </Typography>
       </CardContent>
+      {/* Кнопка перегляду деталей */}
       <CardActions
         sx={{
           padding: 0,

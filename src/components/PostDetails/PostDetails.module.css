@@ -6,15 +6,25 @@
 
 .card {
   margin-bottom: 24px;
+  background-color: var(--mui-palette-background-paper);
+  border: none;
+  box-shadow: 0 4px 16px rgba(31, 38, 135, 0.15);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(31, 38, 135, 0.2);
 }
 
 .avatar {
-  background-color: #2196f3 !important;
+  background-color: #e0e0e0;
+  color: #424242;
 }
 
 .content {
   white-space: pre-wrap;
-  margin-top: 16px !important;
+  margin-top: 16px;
 }
 
 .loadingContainer {
@@ -22,4 +32,87 @@
   justify-content: center;
   align-items: center;
   min-height: 400px;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px;
+  align-items: center;
+}
+
+.cardActions > div {
+  display: flex;
+  gap: 12px;
+}
+
+.backButton {
+  text-transform: none;
+  font-weight: 500;
+  border: 1px solid var(--mui-palette-primary-main);
+}
+
+.deleteButton {
+  text-transform: none;
+  font-weight: 500;
+  background-color: #f44336;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.commentsDialog :global(.MuiDialog-paper) {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 80%;
+  max-height: 80vh;
+  background-color: var(--mui-palette-background-paper);
+  color: var(--mui-palette-text-primary);
+}
+
+.commentsDialog :global(.MuiDialogTitle-root) {
+  background-color: var(--mui-palette-background-paper);
+  color: var(--mui-palette-text-primary);
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.commentsDialog :global(.MuiDialogContent-root) {
+  background-color: var(--mui-palette-background-paper);
+  padding: 0;
+}
+
+.commentsDialog :global(.MuiDivider-root) {
+  border-color: var(--mui-palette-divider);
+}
+
+.commentIcon {
+  color: #2196f3;
+  margin-right: 8px;
+}
+
+.commentItem {
+  padding: 16px;
+}
+
+.commentContent {
+  flex: 1;
+}
+
+.commentName {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--mui-palette-text-primary);
+}
+
+.commentEmail {
+  color: var(--mui-palette-text-secondary);
+  margin-bottom: 8px;
+}
+
+.commentBody {
+  white-space: pre-wrap;
+  color: var(--mui-palette-text-primary);
+  line-height: 1.5;
 }

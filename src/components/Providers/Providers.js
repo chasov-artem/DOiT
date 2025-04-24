@@ -1,3 +1,10 @@
+/**
+ * Головний компонент для налаштування провайдерів додатку
+ * Включає в себе:
+ * - Redux Provider для управління станом
+ * - ThemeProvider для налаштування теми Material-UI
+ */
+
 "use client";
 
 import React from "react";
@@ -6,10 +13,15 @@ import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { store } from "@/store/store";
 import { useSelector } from "react-redux";
 
+/**
+ * Компонент для управління темою додатку
+ * Створює та налаштовує тему Material-UI на основі обраного режиму (світла/темна)
+ */
 const ThemeWrapper = ({ children }) => {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
 
   const theme = createTheme({
+    // Налаштування палітри кольорів
     palette: {
       mode: isDarkMode ? "dark" : "light",
       primary: {
@@ -33,6 +45,7 @@ const ThemeWrapper = ({ children }) => {
           : "rgba(0, 0, 0, 0.7)",
       },
     },
+    // Налаштування типографії
     typography: {
       h3: {
         fontWeight: 400,
@@ -48,6 +61,7 @@ const ThemeWrapper = ({ children }) => {
         color: isDarkMode ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)",
       },
     },
+    // Налаштування компонентів Material-UI
     components: {
       MuiCssBaseline: {
         styleOverrides: {
@@ -80,6 +94,25 @@ const ThemeWrapper = ({ children }) => {
               backgroundColor: isDarkMode
                 ? "rgba(255, 255, 255, 0.05)"
                 : "rgba(0, 0, 0, 0.05)",
+            },
+          },
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: {
+            borderRadius: 0,
+            "& .MuiDialogTitle-root": {
+              borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+              padding: "16px 24px",
+            },
+            "& .MuiDialogContent-root": {
+              borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+              padding: "20px 24px",
+            },
+            "& .MuiDialogActions-root": {
+              borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+              padding: "8px 24px",
             },
           },
         },

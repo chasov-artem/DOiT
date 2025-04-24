@@ -1,3 +1,12 @@
+/**
+ * Компонент деталей поста
+ * Відображає повну інформацію про пост та його коментарі
+ * Включає в себе:
+ * - Повний текст поста
+ * - Модальне вікно з коментарями
+ * - Кнопки для видалення поста та повернення до списку
+ */
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -10,14 +19,22 @@ import {
   Button,
   Typography,
   CircularProgress,
-  IconButton,
-  Badge,
+  Box,
+  List,
+  ListItem,
+  Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
-import { Comment as CommentIcon } from "@mui/icons-material";
+import {
+  Comment as CommentIcon,
+  Delete as DeleteIcon,
+  ArrowBack as ArrowBackIcon,
+} from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { deletePost } from "@/store/postsSlice";
-import CommentsDialog from "@/components/CommentsDialog/CommentsDialog";
+import { useDispatch } from "react-redux";
+import { deletePost, setCommentsCount } from "@/store/postsSlice";
 import styles from "./PostDetails.module.css";
 
 const PostDetails = ({ postId }) => {
@@ -25,26 +42,30 @@ const PostDetails = ({ postId }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState(null);
-  const [commentsOpen, setCommentsOpen] = useState(false);
   const [comments, setComments] = useState([]);
-  const [commentsCount, setCommentsCount] = useState(0);
+  const [commentsCount, setLocalCommentsCount] = useState(0);
+  const [commentsOpen, setCommentsOpen] = useState(false);
 
+  // Завантаження даних поста та коментарів
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
+        // Отримання даних поста
         const response = await fetch(
           `https://jsonplaceholder.typicode.com/posts/${postId}`
         );
         const data = await response.json();
         setPost(data);
 
-        // Fetch comments
+        // Отримання коментарів
         const commentsResponse = await fetch(
           `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
         );
         const commentsData = await commentsResponse.json();
         setComments(commentsData);
-        setCommentsCount(commentsData.length);
+        const count = commentsData.length;
+        setLocalCommentsCount(count);
+        dispatch(setCommentsCount(count));
       } catch (error) {
         console.error("Error fetching post details:", error);
       } finally {
@@ -53,17 +74,30 @@ const PostDetails = ({ postId }) => {
     };
 
     fetchPostDetails();
-  }, [postId]);
 
+    // Обробник події відкриття коментарів
+    const handleOpenComments = () => setCommentsOpen(true);
+    window.addEventListener("openComments", handleOpenComments);
+
+    return () => {
+      window.removeEventListener("openComments", handleOpenComments);
+      // Скидання лічильника коментарів при розмонтуванні
+      dispatch(setCommentsCount(0));
+    };
+  }, [postId, dispatch]);
+
+  // Обробка видалення поста
   const handleDelete = () => {
     dispatch(deletePost(postId));
     router.push("/posts");
   };
 
+  // Повернення до списку постів
   const handleBack = () => {
     router.push("/posts");
   };
 
+  // Відображення стану завантаження
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
@@ -72,49 +106,102 @@ const PostDetails = ({ postId }) => {
     );
   }
 
+  // Відображення помилки, якщо пост не знайдено
   if (!post) {
     return <div>Пост не знайдено</div>;
   }
 
   return (
     <div className={styles.container}>
+      {/* Картка з деталями поста */}
       <Card className={styles.card}>
         <CardHeader
           avatar={
             <Avatar className={styles.avatar}>
-              {post.title.charAt(0).toUpperCase()}
+              {post?.title ? post.title.charAt(0).toUpperCase() : ""}
             </Avatar>
           }
-          action={
-            <IconButton onClick={() => setCommentsOpen(true)}>
-              <Badge badgeContent={commentsCount} color="primary">
-                <CommentIcon />
-              </Badge>
-            </IconButton>
-          }
-          title={post.title}
-          subheader={`Post #${post.id}`}
+          title={post?.title}
         />
         <CardContent>
           <Typography variant="body1" className={styles.content}>
             {post.body}
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button size="small" color="primary" onClick={handleBack}>
-            До списку
-          </Button>
-          <Button size="small" color="error" onClick={handleDelete}>
-            Видалити
-          </Button>
+        <CardActions className={styles.cardActions}>
+          <Box>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDelete}
+              startIcon={<DeleteIcon />}
+              className={styles.deleteButton}
+            >
+              Видалити
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleBack}
+              startIcon={<ArrowBackIcon />}
+              className={styles.backButton}
+            >
+              До списку
+            </Button>
+          </Box>
         </CardActions>
       </Card>
 
-      <CommentsDialog
+      {/* Діалог з коментарями */}
+      <Dialog
         open={commentsOpen}
         onClose={() => setCommentsOpen(false)}
-        comments={comments}
-      />
+        maxWidth="sm"
+        fullWidth
+        className={styles.commentsDialog}
+      >
+        <DialogTitle>
+          <Box display="flex" alignItems="center">
+            <CommentIcon className={styles.commentIcon} />
+            <Typography variant="h6" component="span" ml={1}>
+              Коментарі ({commentsCount})
+            </Typography>
+          </Box>
+        </DialogTitle>
+        <DialogContent>
+          <List>
+            {comments.map((comment, index) => (
+              <React.Fragment key={comment.id}>
+                <ListItem
+                  alignItems="flex-start"
+                  className={styles.commentItem}
+                >
+                  <Box className={styles.commentContent}>
+                    <Typography
+                      variant="subtitle1"
+                      component="div"
+                      className={styles.commentName}
+                    >
+                      {comment.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      className={styles.commentEmail}
+                    >
+                      {comment.email}
+                    </Typography>
+                    <Typography variant="body1" className={styles.commentBody}>
+                      {comment.body}
+                    </Typography>
+                  </Box>
+                </ListItem>
+                {index < comments.length - 1 && <Divider component="li" />}
+              </React.Fragment>
+            ))}
+          </List>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
