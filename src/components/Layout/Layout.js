@@ -58,7 +58,7 @@ const Layout = ({ children }) => {
       const postId = pathname.split("/").pop();
       return `Пост #${postId}`;
     }
-    return "DOiT MVP";
+    return "Posts app";
   };
 
   const isPostDetailsPage = pathname.match(/^\/posts\/\d+$/);

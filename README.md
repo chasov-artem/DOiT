@@ -1,4 +1,4 @@
-# DOiT MVP
+# Posts app
 
 Мінімальний життєздатний продукт (MVP) для освітньої платформи DOiT. Проект реалізований з використанням Next.js, Material-UI та Redux.
 
@@ -104,4 +104,4 @@ MIT License - дивіться [LICENSE](LICENSE) для деталей.
 
 ---
 
-Зроблено з ❤️ командою DOiT
+Made with ❤️ by the post app team

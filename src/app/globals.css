@@ -49,3 +49,10 @@ a {
     color-scheme: dark;
   }
 }
+
+.MuiDialog-paper {
+  background: #fff !important;
+  color: #000 !important;
+  opacity: 1 !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1) !important;
+}

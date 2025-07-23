@@ -21,6 +21,20 @@ const CommentsDialog = ({ open, onClose, comments }) => {
       maxWidth="md"
       fullWidth
       className={styles.dialog}
+      PaperProps={{
+        className: styles.paper,
+        sx: {
+          backgroundColor: "background.paper",
+          color: "text.primary",
+          opacity: 1,
+          boxShadow: 24,
+        },
+      }}
+      BackdropProps={{
+        sx: {
+          backgroundColor: "rgba(0,0,0,0.5)",
+        },
+      }}
     >
       <DialogTitle>Коментарі</DialogTitle>
       <DialogContent>
