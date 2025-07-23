@@ -11,3 +11,10 @@
   margin-top: 8px;
   white-space: pre-wrap;
 }
+
+.paper {
+  background: #fff !important;
+  color: #000 !important;
+  opacity: 1;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}

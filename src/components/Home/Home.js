@@ -45,7 +45,7 @@ const Home = () => {
             fontSize: "48px",
           }}
         >
-          Ласкаво просимо до DOiT MVP
+          Ласкаво просимо до Posts app
         </Typography>
         <Typography
           variant="subtitle1"
@@ -57,9 +57,7 @@ const Home = () => {
                 ? "rgba(255, 255, 255, 0.7)"
                 : "rgba(0, 0, 0, 0.7)",
           }}
-        >
-          Ми працюємо над MVP освітньої платформи. Приєднуйтесь до команди!
-        </Typography>
+        ></Typography>
         <Box className={styles.buttonContainer}>
           <Button
             variant="contained"
